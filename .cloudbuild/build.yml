@@ -1,0 +1,13 @@
+version: 2.0
+params:
+  - name: BuildSource
+    value: Wanderlust
+buildflow:
+ strategy: lazy
+jobs:
+  - job: BuildTerraformImage
+    build_ref: .cloudbuild/terraform.yaml
+  - job: Test 
+    depends_on:
+      - BuildTerraformImage
+    build_ref: .cloudbuild/test.yml
