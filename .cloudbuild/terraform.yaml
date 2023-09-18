@@ -1,0 +1,28 @@
+---
+version: 2.0
+steps:
+  PRE_BUILD:
+  - checkout:
+      name: "checkout"
+      inputs:
+        scm: "codehub"
+        url: "https://codehub.devcloud.ap-southeast-3.huaweicloud.com/cloud00002/terraform.git"
+        branch: "master"
+        lfs: false
+        submodule: false
+  BUILD:
+  - sh:
+      name: "Show variables"
+      inputs:
+        command: |
+          echo "Project ID: ${PROJECT_ID}"
+          echo "Pipeline ID: ${PIPELINE_ID}"
+          echo "Pipeline Number: ${PIPELINE_NUMBER}"
+  - build_image:
+      name: BuildTerraformImage
+      inputs:
+        regions: ["ap-southeast-3"]
+        organization: core
+        image_name: terraform
+        image_tag: ${TIMESTAMP}
+        dockerfile_path: terraform.Dockerfile
