@@ -18,6 +18,8 @@ steps:
           echo "Project ID: ${PROJECT_ID}"
           echo "Pipeline ID: ${PIPELINE_ID}"
           echo "Pipeline Number: ${PIPELINE_NUMBER}"
+          ls -l
+          pwd
   - build_image:
       name: BuildTerraformImage
       inputs:
